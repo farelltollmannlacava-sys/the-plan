@@ -369,6 +369,17 @@ function start() {
   initTabs();
   document.getElementById("cal-prev").addEventListener("click", () => { calMonth.setMonth(calMonth.getMonth() - 1); renderCalendar(); });
   document.getElementById("cal-next").addEventListener("click", () => { calMonth.setMonth(calMonth.getMonth() + 1); renderCalendar(); });
+  document.getElementById("change-pw").addEventListener("click", async () => {
+    const pw = prompt("Neues Passwort (mind. 6 Zeichen):");
+    if (!pw) return;
+    if (pw.length < 6) { alert("Mindestens 6 Zeichen."); return; }
+    const { error } = await sb.auth.updateUser({ password: pw });
+    alert(error ? "Fehler: " + error.message : "Passwort geändert ✓");
+  });
+  document.getElementById("logout").addEventListener("click", async () => {
+    await sb.auth.signOut();
+    location.reload();
+  });
   renderToday();
 }
 

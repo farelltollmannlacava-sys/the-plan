@@ -174,3 +174,7 @@ h2.sec { font-family: "Bodoni Moda", serif; font-weight: 500; font-size: 22px; m
 .hidden { display: none !important; }
 
 footer.tiny { text-align: center; color: var(--muted); font-size: 11px; margin-top: 30px; letter-spacing: .1em; }
+footer.tiny .foot-actions { margin-top: 12px; display: flex; gap: 10px; justify-content: center; align-items: center; }
+footer.tiny .foot-link { background: none; border: 0; color: var(--muted); font-size: 12px; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 3px; letter-spacing: normal; }
+footer.tiny .foot-link:hover { color: var(--gold-soft); }
