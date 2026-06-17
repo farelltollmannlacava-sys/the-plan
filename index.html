@@ -31,21 +31,40 @@
       <div class="kicker">Persönliches Cockpit</div>
       <h1 class="serif">The Plan</h1>
       <div class="date" id="datestr"></div>
+      <div class="reminder" id="reminder"></div>
     </header>
 
     <nav class="tabs">
       <button class="active" data-view="today">Heute</button>
+      <button data-view="calendar">Kalender</button>
       <button data-view="week">Woche</button>
       <button data-view="verbote">Verbote</button>
-      <button data-view="reflexion">Reflexion</button>
+      <button data-view="reflexion">Sonntag</button>
     </nav>
 
     <section id="view-today" class="view active">
       <div class="daytype" id="daytype"></div>
       <div class="blocks" id="blocks"></div>
+
+      <h2 class="sec">Tagesabschluss</h2>
+      <div id="dayreflexion"></div>
+    </section>
+
+    <section id="view-calendar" class="view">
+      <div class="cal-head">
+        <button id="cal-prev" class="cal-nav">‹</button>
+        <div class="cal-title serif" id="cal-title"></div>
+        <button id="cal-next" class="cal-nav">›</button>
+      </div>
+      <div class="cal-dow">
+        <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
+      </div>
+      <div class="calgrid" id="calgrid"></div>
+      <div class="cal-detail" id="cal-detail"></div>
     </section>
 
     <section id="view-week" class="view">
+      <div class="rings" id="rings"></div>
       <div class="weekgrid" id="weekgrid"></div>
       <h2 class="sec">Kategorien diese Woche</h2>
       <div id="catrows"></div>
