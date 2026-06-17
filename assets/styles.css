@@ -1,0 +1,124 @@
+:root {
+  --black: #0c0c0d;
+  --panel: #16161a;
+  --panel-2: #1d1d22;
+  --line: #2a2a30;
+  --gold: #c8a24a;
+  --gold-soft: #e3c878;
+  --text: #ece9e2;
+  --muted: #8a8780;
+  --green: #6f9a5e;
+  --red: #b4624f;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: radial-gradient(120% 90% at 50% 0%, #18181d 0%, var(--black) 60%);
+  color: var(--text);
+  font-family: "Inter", system-ui, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.serif { font-family: "Bodoni Moda", "Didot", Georgia, serif; }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 28px 18px 90px; }
+
+/* Header */
+header.app-head { text-align: center; padding: 18px 0 22px; }
+header.app-head .kicker {
+  letter-spacing: .42em; text-transform: uppercase; font-size: 11px;
+  color: var(--gold); margin-bottom: 8px;
+}
+header.app-head h1 {
+  font-family: "Bodoni Moda", serif; font-weight: 500;
+  font-size: clamp(34px, 8vw, 52px); line-height: .95; letter-spacing: .01em;
+}
+header.app-head .date { color: var(--muted); margin-top: 10px; font-size: 14px; }
+
+/* Tabs */
+.tabs { display: flex; gap: 6px; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 14px; padding: 5px; margin: 0 auto 22px; max-width: 420px; }
+.tabs button {
+  flex: 1; background: transparent; border: 0; color: var(--muted);
+  font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 10px 6px; border-radius: 10px; cursor: pointer; transition: .18s;
+}
+.tabs button.active { background: var(--gold); color: #1a1407; font-weight: 600; }
+
+.view { display: none; }
+.view.active { display: block; animation: fade .25s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* Day type badge */
+.daytype { text-align: center; color: var(--gold-soft); font-size: 13px;
+  letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; }
+
+/* Block list */
+.blocks { display: flex; flex-direction: column; gap: 8px; }
+.block {
+  display: flex; align-items: center; gap: 14px; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 13px; padding: 14px 16px;
+  transition: .15s; cursor: pointer;
+}
+.block.untracked { opacity: .5; cursor: default; }
+.block.done { background: linear-gradient(90deg, rgba(111,154,94,.16), var(--panel)); border-color: #3a4a32; }
+.block .time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 12px; min-width: 78px; }
+.block .label { flex: 1; font-size: 15px; }
+.block.done .label { color: var(--gold-soft); }
+.block .cat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); opacity: .6; }
+.check {
+  width: 24px; height: 24px; border-radius: 7px; border: 1.5px solid var(--line);
+  display: grid; place-items: center; flex-shrink: 0; color: transparent; font-size: 14px;
+}
+.block.done .check { background: var(--green); border-color: var(--green); color: #0c0c0d; }
+
+/* Week view */
+.cat-row { display: flex; align-items: center; gap: 12px; padding: 11px 4px; border-bottom: 1px solid var(--line); }
+.cat-row .name { min-width: 120px; font-size: 14px; }
+.cat-row .bar { flex: 1; height: 8px; background: var(--panel-2); border-radius: 5px; overflow: hidden; }
+.cat-row .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-soft)); }
+.cat-row .num { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; min-width: 44px; text-align: right; }
+.weekgrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin: 4px 0 22px; }
+.weekgrid .d { text-align: center; padding: 10px 0; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+.weekgrid .d .wd { font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+.weekgrid .d .pct { font-family: "Bodoni Moda", serif; font-size: 20px; margin-top: 4px; }
+.weekgrid .d.today { border-color: var(--gold); }
+
+/* Sections */
+h2.sec { font-family: "Bodoni Moda", serif; font-weight: 500; font-size: 22px; margin: 26px 0 12px; }
+
+/* Verbote */
+.verbot { display: flex; align-items: center; gap: 12px; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 7px; }
+.verbot .v-text { flex: 1; font-size: 14px; }
+.verbot .v-nr { color: var(--gold); font-family: "Bodoni Moda", serif; font-size: 18px; min-width: 22px; }
+.verbot button.tick { background: var(--panel-2); border: 1px solid var(--line); color: var(--red);
+  border-radius: 9px; padding: 7px 12px; font-size: 13px; cursor: pointer; }
+.verbot .count { color: var(--muted); font-size: 12px; min-width: 60px; text-align: right; }
+
+/* Reflexion form */
+.field { margin-bottom: 16px; }
+.field label { display: block; color: var(--gold-soft); font-size: 13px; margin-bottom: 7px; }
+.field textarea { width: 100%; background: var(--panel); border: 1px solid var(--line); color: var(--text);
+  border-radius: 11px; padding: 12px; font-family: inherit; font-size: 14px; resize: vertical; min-height: 64px; }
+.field textarea:focus { outline: none; border-color: var(--gold); }
+
+.btn { background: var(--gold); color: #1a1407; border: 0; border-radius: 11px; padding: 13px 22px;
+  font-size: 14px; font-weight: 600; letter-spacing: .04em; cursor: pointer; width: 100%; }
+.btn:active { transform: scale(.99); }
+
+.saved-hint { color: var(--green); font-size: 13px; text-align: center; margin-top: 10px; min-height: 18px; }
+
+/* PIN gate */
+#gate { position: fixed; inset: 0; background: var(--black); display: grid; place-items: center; z-index: 50; }
+#gate .box { text-align: center; }
+#gate input { background: var(--panel); border: 1px solid var(--line); color: var(--text);
+  font-size: 28px; letter-spacing: .5em; text-align: center; border-radius: 12px; padding: 14px 18px;
+  width: 200px; font-family: "Bodoni Moda", serif; }
+#gate input:focus { outline: none; border-color: var(--gold); }
+#gate .err { color: var(--red); font-size: 13px; margin-top: 12px; min-height: 16px; }
+.hidden { display: none !important; }
+
+footer.tiny { text-align: center; color: var(--muted); font-size: 11px; margin-top: 30px; letter-spacing: .1em; }

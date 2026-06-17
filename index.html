@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0c0c0d" />
+  <title>The Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <!-- PIN-Gate -->
+  <div id="gate">
+    <div class="box">
+      <div class="serif" style="font-size:40px;margin-bottom:6px;">The Plan</div>
+      <div style="color:var(--muted);letter-spacing:.3em;text-transform:uppercase;font-size:11px;margin-bottom:22px;">Zugang</div>
+      <input id="pin" type="tel" inputmode="numeric" maxlength="8" placeholder="••••" autocomplete="off" />
+      <div class="err" id="pin-err"></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <header class="app-head">
+      <div class="kicker">Persönliches Cockpit</div>
+      <h1 class="serif">The Plan</h1>
+      <div class="date" id="datestr"></div>
+    </header>
+
+    <nav class="tabs">
+      <button class="active" data-view="today">Heute</button>
+      <button data-view="week">Woche</button>
+      <button data-view="verbote">Verbote</button>
+      <button data-view="reflexion">Reflexion</button>
+    </nav>
+
+    <section id="view-today" class="view active">
+      <div class="daytype" id="daytype"></div>
+      <div class="blocks" id="blocks"></div>
+    </section>
+
+    <section id="view-week" class="view">
+      <div class="weekgrid" id="weekgrid"></div>
+      <h2 class="sec">Kategorien diese Woche</h2>
+      <div id="catrows"></div>
+    </section>
+
+    <section id="view-verbote" class="view">
+      <h2 class="sec">Selbst-Verbote · diesen Monat</h2>
+      <div id="verbote"></div>
+    </section>
+
+    <section id="view-reflexion" class="view">
+      <h2 class="sec">Wochen-Reflexion</h2>
+      <div id="reflexion"></div>
+    </section>
+
+    <footer class="tiny">THE PLAN · EINFACH DURCHZIEHEN</footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/config.js"></script>
+  <script src="assets/plan-data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
