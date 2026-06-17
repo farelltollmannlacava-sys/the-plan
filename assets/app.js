@@ -1,7 +1,8 @@
 /* The Plan — Cockpit-Logik */
-const { SUPABASE_URL, SUPABASE_KEY, PIN } = window.PLAN_CONFIG;
+const { SUPABASE_URL, SUPABASE_KEY } = window.PLAN_CONFIG;
 const P = window.PLAN_DATA;
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let VERBOTE = []; // wird nach Login aus der DB geladen
 
 const WD = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
 const WD_SHORT = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
@@ -16,19 +17,41 @@ function mondayOf(d) {
 }
 const typeForDate = (d) => P.types[P.weekdayToType[d.getDay()]];
 
-// ---- PIN-Gate ----
-function initGate() {
-  if (sessionStorage.getItem("plan_ok") === "1") { document.getElementById("gate").classList.add("hidden"); return start(); }
-  const inp = document.getElementById("pin");
-  const err = document.getElementById("pin-err");
-  inp.focus();
-  inp.addEventListener("input", () => {
-    if (inp.value.length >= PIN.length) {
-      if (inp.value === PIN) { sessionStorage.setItem("plan_ok", "1"); document.getElementById("gate").classList.add("hidden"); start(); }
-      else { err.textContent = "Falscher PIN"; inp.value = ""; }
-    }
+// ---- Login-Gate (Supabase-Auth) ----
+let signupMode = false;
+async function initGate() {
+  const form = document.getElementById("login-form");
+  const err = document.getElementById("login-err");
+  const btn = document.getElementById("login-btn");
+  const toggle = document.getElementById("toggle-signup");
+
+  // Schon eingeloggt? (Session aus dem Browser)
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) return unlock();
+
+  toggle.addEventListener("click", () => {
+    signupMode = !signupMode;
+    btn.textContent = signupMode ? "Konto anlegen" : "Einloggen";
+    toggle.textContent = signupMode ? "Schon ein Konto? Einloggen" : "Erstes Mal? Konto anlegen";
+    err.textContent = "";
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    err.textContent = "";
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    if (!email || !password) { err.textContent = "Mail und Passwort eingeben"; return; }
+    btn.disabled = true;
+    const fn = signupMode ? sb.auth.signUp : sb.auth.signInWithPassword;
+    const { error } = await fn.call(sb.auth, { email, password });
+    btn.disabled = false;
+    if (error) { err.textContent = error.message; return; }
+    if (signupMode) { err.style.color = "var(--green)"; err.textContent = "Konto angelegt. Falls eine Bestätigungsmail kommt, kurz bestätigen – dann einloggen."; signupMode = false; btn.textContent = "Einloggen"; toggle.textContent = "Erstes Mal? Konto anlegen"; return; }
+    unlock();
   });
 }
+function unlock() { document.getElementById("gate").classList.add("hidden"); start(); }
 
 // ---- Daten laden ----
 async function getChecks(dateStr) {
@@ -121,7 +144,11 @@ async function renderVerbote() {
   (data || []).forEach((r) => { cnt[r.verbot_nr] = (cnt[r.verbot_nr] || 0) + 1; });
   const wrap = document.getElementById("verbote");
   wrap.innerHTML = "";
-  P.verbote.forEach((v) => {
+  if (!VERBOTE.length) {
+    const { data: vd } = await sb.from("meta_verbote").select("nr,text").order("nr");
+    VERBOTE = vd || [];
+  }
+  VERBOTE.forEach((v) => {
     const el = document.createElement("div");
     el.className = "verbot";
     el.innerHTML = `<span class="v-nr serif">${v.nr}</span><span class="v-text">${v.text}</span>` +

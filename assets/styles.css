@@ -111,14 +111,17 @@ h2.sec { font-family: "Bodoni Moda", serif; font-weight: 500; font-size: 22px; m
 
 .saved-hint { color: var(--green); font-size: 13px; text-align: center; margin-top: 10px; min-height: 18px; }
 
-/* PIN gate */
-#gate { position: fixed; inset: 0; background: var(--black); display: grid; place-items: center; z-index: 50; }
-#gate .box { text-align: center; }
+/* Login gate */
+#gate { position: fixed; inset: 0; background: radial-gradient(120% 90% at 50% 0%, #18181d 0%, var(--black) 60%); display: grid; place-items: center; z-index: 50; padding: 20px; }
+#gate .box { text-align: center; width: 100%; max-width: 280px; }
+#gate form { display: flex; flex-direction: column; gap: 10px; align-items: center; }
 #gate input { background: var(--panel); border: 1px solid var(--line); color: var(--text);
-  font-size: 28px; letter-spacing: .5em; text-align: center; border-radius: 12px; padding: 14px 18px;
-  width: 200px; font-family: "Bodoni Moda", serif; }
+  font-size: 16px; text-align: center; border-radius: 11px; padding: 13px 16px; width: 240px; font-family: inherit; }
 #gate input:focus { outline: none; border-color: var(--gold); }
-#gate .err { color: var(--red); font-size: 13px; margin-top: 12px; min-height: 16px; }
+#gate .linklike { background: none; border: 0; color: var(--muted); font-size: 13px; margin-top: 16px;
+  cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+#gate .linklike:hover { color: var(--gold-soft); }
+#gate .err { color: var(--red); font-size: 13px; margin-top: 14px; min-height: 16px; }
 .hidden { display: none !important; }
 
 footer.tiny { text-align: center; color: var(--muted); font-size: 11px; margin-top: 30px; letter-spacing: .1em; }

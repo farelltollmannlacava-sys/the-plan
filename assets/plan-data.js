@@ -88,17 +88,7 @@ window.PLAN_DATA = {
     reflektion: "Reflektion",
   },
 
-  // Die 8 Selbst-Verbote (verbote.md)
-  verbote: [
-    { nr: 1, text: "Kein Koffein nach 13:00, max 400 mg/Tag" },
-    { nr: 2, text: "Keine Freunde unter der Woche" },
-    { nr: 3, text: "Plan an 6/7 Tagen voll durchziehen (Sa = Flex)" },
-    { nr: 4, text: "Gesamtausgaben < 400 €/Monat" },
-    { nr: 5, text: "Konsum < 80 €/Monat" },
-    { nr: 6, text: "Max 12× Alkohol/Jahr" },
-    { nr: 7, text: "Schlafrhythmus-Unterbrechung max 2×/Monat" },
-    { nr: 8, text: "Kein Verhandeln mit dir selbst" },
-  ],
+  // Verbote-Texte kommen aus der DB (Tabelle meta_verbote), hinter dem Login.
 
   // Sonntags-Reflexion
   reflectionQuestions: [

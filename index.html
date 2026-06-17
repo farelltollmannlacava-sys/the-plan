@@ -11,13 +11,18 @@
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
-  <!-- PIN-Gate -->
+  <!-- Login-Gate -->
   <div id="gate">
     <div class="box">
-      <div class="serif" style="font-size:40px;margin-bottom:6px;">The Plan</div>
-      <div style="color:var(--muted);letter-spacing:.3em;text-transform:uppercase;font-size:11px;margin-bottom:22px;">Zugang</div>
-      <input id="pin" type="tel" inputmode="numeric" maxlength="8" placeholder="••••" autocomplete="off" />
-      <div class="err" id="pin-err"></div>
+      <div class="serif" style="font-size:44px;margin-bottom:4px;">The Plan</div>
+      <div style="color:var(--muted);letter-spacing:.3em;text-transform:uppercase;font-size:11px;margin-bottom:26px;">Anmelden</div>
+      <form id="login-form" autocomplete="on">
+        <input id="email" type="email" placeholder="E-Mail" autocomplete="username" />
+        <input id="password" type="password" placeholder="Passwort" autocomplete="current-password" />
+        <button id="login-btn" type="submit" class="btn" style="width:240px;margin-top:6px;">Einloggen</button>
+      </form>
+      <button id="toggle-signup" class="linklike">Erstes Mal? Konto anlegen</button>
+      <div class="err" id="login-err"></div>
     </div>
   </div>
 
