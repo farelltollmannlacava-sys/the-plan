@@ -249,9 +249,14 @@ async function renderCalendar() {
   const y = calMonth.getFullYear(), m = calMonth.getMonth();
   document.getElementById("cal-title").textContent = `${MONTHS[m]} ${y}`;
   const first = new Date(y, m, 1), last = new Date(y, m + 1, 0);
-  const { data } = await sb.from("day_checks").select("date,block_id,done").gte("date", iso(first)).lte("date", iso(last));
+  const [{ data }, { data: evs }] = await Promise.all([
+    sb.from("day_checks").select("date,block_id,done").gte("date", iso(first)).lte("date", iso(last)),
+    sb.from("events").select("date,type").gte("date", iso(first)).lte("date", iso(last)),
+  ]);
   const byDate = {};
   (data || []).forEach((r) => { if (r.done) (byDate[r.date] = byDate[r.date] || {})[r.block_id] = true; });
+  const evDays = {};
+  (evs || []).forEach((e) => { evDays[e.date] = e.type; });
 
   const grid = document.getElementById("calgrid");
   grid.innerHTML = "";
@@ -263,7 +268,8 @@ async function renderCalendar() {
     const p = pctForDate(d, byDate[ds] || {});
     const cell = document.createElement("div");
     cell.className = "cal-cell" + (ds === todayStr ? " today" : "") + (ds === calSel ? " sel" : "");
-    cell.innerHTML = `<span class="dnum">${day}</span><span class="dot" style="background:${pctColor(p)}"></span>`;
+    const evMark = evDays[ds] ? `<span class="ev-mark ev-${evDays[ds]}">${evDays[ds] === "birthday" ? "🎂" : evDays[ds] === "holiday" ? "★" : "●"}</span>` : "";
+    cell.innerHTML = `${evMark}<span class="dnum">${day}</span><span class="dot" style="background:${pctColor(p)}"></span>`;
     cell.addEventListener("click", () => { calSel = ds; renderCalendar(); renderCalDetail(d); });
     grid.appendChild(cell);
   }
@@ -272,13 +278,21 @@ async function renderCalendar() {
 }
 async function renderCalDetail(d) {
   const ds = iso(d);
-  const checks = await getChecks(ds);
-  const { data: refl } = await sb.from("day_reflections").select("*").eq("date", ds).maybeSingle();
+  const [checks, { data: refl }, { data: evs }] = await Promise.all([
+    getChecks(ds),
+    sb.from("day_reflections").select("*").eq("date", ds).maybeSingle(),
+    sb.from("events").select("title,type,all_day,start_time").eq("date", ds).order("start_time", { nullsFirst: true }),
+  ]);
   const t = typeForDate(d);
   const tracked = t.blocks.filter((b) => b.track);
   const done = tracked.filter((b) => checks[b.id]);
   const pct = tracked.length ? Math.round((done.length / tracked.length) * 100) : 0;
   let html = `<div class="cd-day">${WD[d.getDay()]}, ${String(d.getDate()).padStart(2,"0")}.${String(d.getMonth()+1).padStart(2,"0")} · ${t.name}</div>`;
+  (evs || []).forEach((e) => {
+    const icon = e.type === "birthday" ? "🎂" : e.type === "holiday" ? "★" : "📌";
+    const when = e.all_day || !e.start_time ? "" : `<span class="ev-time">${e.start_time}</span> `;
+    html += `<div class="cd-event">${icon} ${when}${e.title.replace(/</g, "&lt;")}</div>`;
+  });
   html += `<div class="cd-line">Erfüllt: <b style="color:var(--text)">${done.length}/${tracked.length}</b> (${pct} %)${refl && refl.rating ? " · Tag " + refl.rating + "/5 ★" : ""}</div>`;
   if (refl && refl.note) html += `<div class="cd-note">${refl.note.replace(/</g, "&lt;")}</div>`;
   document.getElementById("cal-detail").innerHTML = html;

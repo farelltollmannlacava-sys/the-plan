@@ -153,6 +153,12 @@ h2.sec { font-family: "Bodoni Moda", serif; font-weight: 500; font-size: 22px; m
 .cal-detail .cd-day { color: var(--gold-soft); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
 .cal-detail .cd-line { font-size: 14px; color: var(--muted); padding: 4px 0; }
 .cal-detail .cd-note { background: var(--panel); border: 1px solid var(--line); border-radius: 11px; padding: 12px; margin-top: 8px; font-size: 14px; }
+.cal-detail .cd-event { font-size: 14px; padding: 7px 11px; margin-bottom: 6px; background: var(--panel-2);
+  border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 9px; color: var(--text); }
+.cal-detail .cd-event .ev-time { color: var(--gold-soft); font-variant-numeric: tabular-nums; font-size: 13px; }
+.cal-cell .ev-mark { position: absolute; top: 4px; right: 5px; font-size: 9px; line-height: 1; }
+.cal-cell .ev-mark.ev-holiday { color: var(--gold); }
+.cal-cell .ev-mark.ev-personal { color: var(--gold-soft); }
 
 /* Login gate */
 #gate { position: fixed; inset: 0; background: radial-gradient(120% 90% at 50% 0%, #18181d 0%, var(--black) 60%); display: grid; place-items: center; z-index: 50; padding: 20px; }
