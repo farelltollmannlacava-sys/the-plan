@@ -38,6 +38,7 @@
       <button class="active" data-view="today">Heute</button>
       <button data-view="calendar">Kalender</button>
       <button data-view="week">Woche</button>
+      <button data-view="finance">Finanzen</button>
       <button data-view="verbote">Verbote</button>
       <button data-view="reflexion">Sonntag</button>
     </nav>
@@ -70,6 +71,18 @@
       <div id="catrows"></div>
     </section>
 
+    <section id="view-finance" class="view">
+      <div id="finance-onboard"></div>
+      <h2 class="sec">Buchung erfassen</h2>
+      <div id="finance-form"></div>
+      <h2 class="sec">Budget diesen Monat</h2>
+      <div id="finance-budget"></div>
+      <h2 class="sec">Verlauf</h2>
+      <div id="finance-charts"></div>
+      <h2 class="sec">Letzte Buchungen</h2>
+      <div id="finance-list"></div>
+    </section>
+
     <section id="view-verbote" class="view">
       <h2 class="sec">Selbst-Verbote · diesen Monat</h2>
       <div id="verbote"></div>
@@ -93,6 +106,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="assets/config.js"></script>
   <script src="assets/plan-data.js"></script>
+  <script src="assets/finance-calc.js"></script>
+  <script src="assets/charts.js"></script>
+  <script src="assets/finance.js"></script>
   <script src="assets/app.js"></script>
 </body>
 </html>

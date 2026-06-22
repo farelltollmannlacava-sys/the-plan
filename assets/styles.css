@@ -178,3 +178,35 @@ footer.tiny .foot-actions { margin-top: 12px; display: flex; gap: 10px; justify-
 footer.tiny .foot-link { background: none; border: 0; color: var(--muted); font-size: 12px; cursor: pointer;
   text-decoration: underline; text-underline-offset: 3px; letter-spacing: normal; }
 footer.tiny .foot-link:hover { color: var(--gold-soft); }
+
+/* ---- Finanzen ---- */
+#fin-balance { text-align:center; margin:10px 0 4px; }
+.fin-bal-cap { color:var(--muted); letter-spacing:.25em; text-transform:uppercase; font-size:10px; }
+.fin-bal { font-size:40px; line-height:1.1; color:var(--text); }
+.fin-onboard { background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:14px; margin-bottom:8px; }
+.fin-onboard-txt { color:var(--muted); font-size:13px; margin-bottom:8px; }
+.fin-form { background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:12px; }
+.fin-row { display:flex; gap:8px; margin-bottom:8px; }
+.fin-row input, .fin-row select { flex:1; min-width:0; }
+.fin-kind { display:flex; gap:6px; margin-bottom:10px; }
+.fin-k { flex:1; padding:8px; border:1px solid var(--line); background:transparent; color:var(--muted); border-radius:8px; cursor:pointer; font:inherit; }
+.fin-k.active { border-color:var(--gold); color:var(--gold); }
+.fin-item { display:flex; align-items:center; gap:8px; padding:9px 2px; border-bottom:1px solid var(--line); font-size:14px; }
+.fin-date { color:var(--muted); width:42px; flex:none; font-variant-numeric:tabular-nums; }
+.fin-cat-lbl { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.fin-amt { font-variant-numeric:tabular-nums; flex:none; }
+.fin-edit, .fin-del { background:none; border:none; color:var(--muted); cursor:pointer; font-size:14px; padding:2px 4px; flex:none; }
+.fin-del:hover { color:var(--red); }
+.fin-edit:hover { color:var(--gold); }
+.muted-line { color:var(--muted); font-size:13px; padding:8px 0; }
+
+/* ---- Finanzen: Budget + Charts ---- */
+.bud-row { margin-bottom:12px; }
+.bud-top { display:flex; justify-content:space-between; font-size:13px; margin-bottom:5px; }
+.bud-lbl { color:var(--text); }
+.bud-num { color:var(--muted); font-variant-numeric:tabular-nums; }
+.bud-track { height:8px; background:var(--panel-2); border-radius:5px; overflow:hidden; }
+.bud-track i { display:block; height:100%; border-radius:5px; transition:width .3s; }
+.chart-card { background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:12px; margin-bottom:10px; }
+.chart-cap { color:var(--muted); letter-spacing:.2em; text-transform:uppercase; font-size:10px; margin-bottom:6px; }
+.chart { width:100%; height:auto; display:block; }
