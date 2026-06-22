@@ -156,6 +156,41 @@ async function renderFinance() {
 }
 window.renderFinance = renderFinance;
 
-// Platzhalter bis Task 6 (verhindert ReferenceError beim ersten Lauf)
-if (typeof renderBudget === "undefined") { var renderBudget = function () {}; }
-if (typeof renderCharts === "undefined") { var renderCharts = function () {}; }
+// ---- Budget-Balken (Verbote 4 + 5) ----
+const LIMIT_KONSUM = 80, LIMIT_GESAMT = 400;
+function budgetColor(spent, limit) {
+  const r = spent / limit;
+  if (r >= 1) return "var(--red)";
+  if (r >= 0.8) return "var(--gold)";
+  return "var(--green)";
+}
+function budgetBar(label, spent, limit) {
+  const pct = Math.min(spent / limit, 1) * 100;
+  const col = budgetColor(spent, limit);
+  const over = spent > limit ? ` <span style="color:var(--red)">über Limit</span>` : "";
+  return `<div class="bud-row"><div class="bud-top"><span class="bud-lbl">${label}</span>` +
+    `<span class="bud-num">${eur(spent)} / ${eur(limit)}${over}</span></div>` +
+    `<div class="bud-track"><i style="width:${pct.toFixed(1)}%;background:${col}"></i></div></div>`;
+}
+function renderBudget(entries) {
+  const now = new Date();
+  const { konsum, gesamt } = monthBudget(entries, now.getFullYear(), now.getMonth() + 1);
+  document.getElementById("finance-budget").innerHTML =
+    budgetBar("Konsum (Verbot 5)", konsum, LIMIT_KONSUM) +
+    budgetBar("Gesamtausgaben (Verbot 4)", gesamt, LIMIT_GESAMT);
+}
+
+// ---- Diagramme ----
+const MON_SHORT = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
+const monLabel = (ym) => MON_SHORT[Number(ym.slice(5, 7)) - 1];
+function renderCharts(startBalance, entries) {
+  const el = document.getElementById("finance-charts");
+  if (startBalance == null || !entries.length) { el.innerHTML = `<div class="muted-line">Sobald Buchungen da sind, erscheinen hier Verläufe.</div>`; return; }
+  const bal = balanceSeries(startBalance, entries).map((p) => ({ label: p.date.slice(5, 10), value: p.balance }));
+  const exp = monthlyExpenseTotals(entries).map((m) => ({ label: monLabel(m.month), value: m.total }));
+  const inc = monthlyIncomeTotals(entries).map((m) => ({ label: monLabel(m.month), value: m.total }));
+  el.innerHTML =
+    `<div class="chart-card"><div class="chart-cap">Kontostand-Verlauf</div>${svgLineChart(bal)}</div>` +
+    `<div class="chart-card"><div class="chart-cap">Ausgaben pro Monat</div>${svgBarChart(exp, { color: "var(--red)" })}</div>` +
+    `<div class="chart-card"><div class="chart-cap">Einnahmen pro Monat</div>${svgBarChart(inc, { color: "var(--green)" })}</div>`;
+}
