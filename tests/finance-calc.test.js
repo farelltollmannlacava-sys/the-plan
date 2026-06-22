@@ -22,6 +22,27 @@ const EJ = [
   { date: "2026-07-01", kind: "expense", amount: 40, category: "Konsum" },
 ];
 
+// Supabase/PostgREST liefert numeric-Spalten als String — die Logik muss das verkraften
+const ES = [
+  { date: "2026-06-01", kind: "income", amount: "2000.00", category: "Einnahme" },
+  { date: "2026-06-03", kind: "expense", amount: "50.00", category: "Konsum" },
+  { date: "2026-06-04", kind: "expense", amount: "120.00", category: "Sonstiges" },
+];
+
+test("computeBalance: String-Beträge (Supabase numeric) ergeben Zahl", () => {
+  expect(computeBalance(0, ES)).toBe(1830);
+});
+test("monthBudget: String-Beträge ergeben numerische Summen", () => {
+  expect(monthBudget(ES, 2026, 6)).toEqual({ konsum: 50, gesamt: 170 });
+});
+test("balanceSeries: String-Beträge ergeben numerische Salden", () => {
+  const s = balanceSeries(0, ES);
+  expect(s[s.length - 1].balance).toBe(1830);
+});
+test("monthlyExpenseTotals: String-Beträge summieren numerisch", () => {
+  expect(monthlyExpenseTotals(ES)).toEqual([{ month: "2026-06", total: 170 }]);
+});
+
 test("computeBalance: Start + Einnahmen - Ausgaben", () => {
   expect(computeBalance(500, E)).toBe(500 + 2100 - 970);
 });

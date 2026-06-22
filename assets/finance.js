@@ -6,7 +6,9 @@ const todayIso = () => iso(new Date());
 // ---- Supabase I/O ----
 async function loadFinance() {
   const { data } = await sb.from("finance_entries").select("*").order("date", { ascending: false }).order("id", { ascending: false });
-  return data || [];
+  // Supabase liefert numeric/bigint als String — an der Datengrenze in Zahlen wandeln,
+  // damit Rechnungen (amount) und der Edit-Abgleich (id) korrekt funktionieren.
+  return (data || []).map((r) => ({ ...r, id: Number(r.id), amount: Number(r.amount) }));
 }
 async function getStartBalance() {
   const { data } = await sb.from("app_settings").select("value").eq("key", "start_balance").maybeSingle();
