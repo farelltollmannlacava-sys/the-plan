@@ -66,7 +66,7 @@ function renderForm() {
   document.getElementById("fin-save").addEventListener("click", async () => {
     const amount = parseFloat(document.getElementById("fin-amount").value);
     const date = document.getElementById("fin-date").value;
-    if (isNaN(amount) || amount < 0 || !date) { flashHint("Betrag & Datum prüfen", true); return; }
+    if (isNaN(amount) || amount <= 0 || !date) { flashHint("Betrag & Datum prüfen", true); return; }
     const row = {
       date, kind, amount,
       category: kind === "income" ? FIN_INCOME_CAT : catSel.value,
@@ -116,7 +116,6 @@ function renderList(entries) {
     document.getElementById("fin-amount").value = e.amount;
     document.getElementById("fin-date").value = e.date;
     document.getElementById("fin-note").value = e.note || "";
-    el.querySelectorAll(".fin-k").forEach(() => {});
     document.querySelector(`.fin-k[data-kind="${e.kind}"]`).click();
     if (e.kind === "expense") document.getElementById("fin-cat").value = e.category;
     document.getElementById("finance-form").scrollIntoView({ behavior: "smooth" });
