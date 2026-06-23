@@ -210,3 +210,15 @@ footer.tiny .foot-link:hover { color: var(--gold-soft); }
 .chart-card { background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:12px; margin-bottom:10px; }
 .chart-cap { color:var(--muted); letter-spacing:.2em; text-transform:uppercase; font-size:10px; margin-bottom:6px; }
 .chart { width:100%; height:auto; display:block; }
+
+/* ---- Briefing ---- */
+#briefing { margin-bottom: 14px; }
+.briefing-empty { color: var(--muted); font-size: 13px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.briefing-card { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.briefing-card h2 { font-family: "Bodoni Moda", serif; font-size: 22px; margin: 0 0 10px; color: var(--text); }
+.briefing-card h3 { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 14px 0 6px; }
+.briefing-card h4 { font-size: 13px; color: var(--text); margin: 10px 0 4px; }
+.briefing-card p { font-size: 14px; line-height: 1.5; color: var(--text); margin: 6px 0; }
+.briefing-card ul { margin: 6px 0; padding-left: 18px; }
+.briefing-card li { font-size: 14px; line-height: 1.5; margin: 4px 0; }
+.briefing-card strong { color: var(--text); }

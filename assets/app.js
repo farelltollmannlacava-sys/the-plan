@@ -122,6 +122,7 @@ async function renderDayReflexion(dateStr) {
 // ---- HEUTE ----
 let today = new Date();
 async function renderToday() {
+  renderBriefing();
   const t = typeForDate(today);
   document.getElementById("daytype").textContent = `${WD[today.getDay()]} · ${t.name}`;
   const checks = await getChecks(iso(today));
