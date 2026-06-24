@@ -39,5 +39,12 @@ async function renderTrends() {
   // KI-Stunden pro Woche (Balken)
   const wk = weeklyKiHours(days).map((w) => ({ label: w.week.slice(5), value: w.hours }));
   document.getElementById("trends-ki").innerHTML = `<div class="chart-card">${svgBarChart(wk, { color: "var(--gold)" })}</div>`;
+
+  // Körper-Kurven (Gewicht + Schlaf) aus body_metrics
+  const { data: bm } = await sb.from("body_metrics").select("date,weight,sleep_hours").gte("date", iso(start)).lte("date", iso(end));
+  const weight = metricSeries(bm || [], "weight").map((p) => ({ label: p.date.slice(5), value: p.value }));
+  document.getElementById("trends-weight").innerHTML = `<div class="chart-card">${svgLineChart(weight)}</div>`;
+  const sleep = metricSeries(bm || [], "sleep_hours").map((p) => ({ label: p.date.slice(5), value: p.value }));
+  document.getElementById("trends-sleep").innerHTML = `<div class="chart-card">${svgLineChart(sleep, { color: "var(--gold-soft)" })}</div>`;
 }
 window.renderTrends = renderTrends;

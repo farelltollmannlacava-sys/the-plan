@@ -144,6 +144,7 @@ async function renderToday() {
     wrap.appendChild(el);
   });
   renderDayReflexion(iso(today));
+  renderBody();
 }
 
 // ---- WOCHE ----
