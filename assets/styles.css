@@ -245,3 +245,8 @@ footer.tiny .foot-link:hover { color: var(--gold-soft); }
 .goal-edit { display: flex; gap: 8px; margin-top: 8px; align-items: center; }
 .goal-edit input { width: 120px; }
 .goal-auto { color: var(--muted); font-size: 12px; font-style: italic; }
+
+/* ---- Briefing: Tabellen ---- */
+.briefing-card table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 13px; }
+.briefing-card th { text-align: left; color: var(--gold); font-weight: 600; padding: 5px 8px; border-bottom: 1px solid var(--line); }
+.briefing-card td { padding: 5px 8px; border-bottom: 1px solid var(--line); color: var(--text); vertical-align: top; }
