@@ -228,3 +228,9 @@ footer.tiny .foot-link:hover { color: var(--gold-soft); }
 .tr-stat { flex: 1; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 14px; text-align: center; }
 .tr-num { font-size: 34px; line-height: 1.1; color: var(--gold); }
 .tr-cap { color: var(--muted); letter-spacing: .15em; text-transform: uppercase; font-size: 10px; margin-top: 2px; }
+
+/* ---- Körper ---- */
+.body-card { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.body-f { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: 12px; }
+.body-f input, .body-f select { width: 100%; }
+#b-caf-bar { margin-top: 12px; }
