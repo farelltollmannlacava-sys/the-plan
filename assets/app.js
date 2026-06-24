@@ -359,7 +359,7 @@ function initTabs() {
       b.classList.add("active");
       const v = document.getElementById("view-" + b.dataset.view);
       v.classList.add("active");
-      ({ today: renderToday, calendar: renderCalendar, week: renderWeek, finance: renderFinance, trends: renderTrends, verbote: renderVerbote, reflexion: renderReflexion }[b.dataset.view])();
+      ({ today: renderToday, calendar: renderCalendar, week: renderWeek, finance: renderFinance, trends: renderTrends, ziele: renderGoals, verbote: renderVerbote, reflexion: renderReflexion }[b.dataset.view])();
     });
   });
 }
