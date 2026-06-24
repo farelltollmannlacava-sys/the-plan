@@ -17,6 +17,7 @@ async function renderGoals() {
       const t = ev.currentTarget;
       const now = !t.classList.contains("on");
       t.classList.toggle("on", now);
+      if (t.nextElementSibling) t.nextElementSibling.classList.toggle("done", now);
       await sb.from("goals").update({ done: now }).eq("key", t.dataset.key);
     })
   );
