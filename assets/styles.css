@@ -222,3 +222,9 @@ footer.tiny .foot-link:hover { color: var(--gold-soft); }
 .briefing-card ul { margin: 6px 0; padding-left: 18px; }
 .briefing-card li { font-size: 14px; line-height: 1.5; margin: 4px 0; }
 .briefing-card strong { color: var(--text); }
+
+/* ---- Trends ---- */
+.tr-stats { display: flex; gap: 10px; margin-bottom: 6px; }
+.tr-stat { flex: 1; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 14px; text-align: center; }
+.tr-num { font-size: 34px; line-height: 1.1; color: var(--gold); }
+.tr-cap { color: var(--muted); letter-spacing: .15em; text-transform: uppercase; font-size: 10px; margin-top: 2px; }

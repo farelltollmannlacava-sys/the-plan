@@ -39,6 +39,7 @@
       <button data-view="calendar">Kalender</button>
       <button data-view="week">Woche</button>
       <button data-view="finance">Finanzen</button>
+      <button data-view="trends">Trends</button>
       <button data-view="verbote">Verbote</button>
       <button data-view="reflexion">Sonntag</button>
     </nav>
@@ -84,6 +85,16 @@
       <div id="finance-list"></div>
     </section>
 
+    <section id="view-trends" class="view">
+      <div id="trends-stats"></div>
+      <h2 class="sec">Erfüllung · letzte 90 Tage</h2>
+      <div id="trends-completion"></div>
+      <h2 class="sec">Erfüllung pro Woche</h2>
+      <div id="trends-weekly"></div>
+      <h2 class="sec">KI-Stunden pro Woche</h2>
+      <div id="trends-ki"></div>
+    </section>
+
     <section id="view-verbote" class="view">
       <h2 class="sec">Selbst-Verbote · diesen Monat</h2>
       <div id="verbote"></div>
@@ -112,6 +123,8 @@
   <script src="assets/finance.js"></script>
   <script src="assets/markdown.js"></script>
   <script src="assets/briefing.js"></script>
+  <script src="assets/trends-calc.js"></script>
+  <script src="assets/trends.js"></script>
   <script src="assets/app.js"></script>
 </body>
 </html>
